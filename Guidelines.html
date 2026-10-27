@@ -61,18 +61,19 @@ footer{color:var(--muted);font-size:.85rem;text-align:center;margin-top:30px}
 <h2>Before you start: how the builder uses your answers</h2>
 <ul>
 <li><strong>Your answers are pasted straight into Markdown.</strong> Each field becomes a section under <code>## 1.</code> … <code>## 10.</code>, so you can use Markdown inside the text boxes: <code>-</code> bullets, <code>1.</code> numbered lists, <code>**bold**</code>, <code>`code`</code>, and simple tables. Don't add <code>#</code> or <code>##</code> headings of your own. Use <code>**Bold labels:**</code> or <code>####</code> for sub-headings so the document hierarchy stays intact.</li>
-<li><strong>The builder already adds boilerplate.</strong> Every spec automatically gets "build end-to-end, no mockups, never hardcode secrets, write a README, <code>.env.example</code>, tests, definition of done". Don't repeat any of that. Use your words on things that are specific to <em>this</em> project.</li>
+<li><strong>The builder already adds boilerplate.</strong> Every spec automatically gets "build end-to-end, no mockups, never hardcode secrets, write a README, environment-variable example file, tests, definition of done". Don't repeat any of that. Use your words on things that are specific to <em>this</em> project.</li>
 <li><strong>The reader is an AI coding assistant.</strong> It takes every sentence literally and fills any gap with a guess. Wherever a guess would be wrong, write the decision down: the exact field names, numbers, messages, and states.</li>
 <li><strong>Every field is required.</strong> If something doesn't apply, write a short reason ("No authentication — single-user local demo") rather than leaving it blank, or the spec will say <em>"Not specified yet."</em></li>
 </ul>
-<div class="callout warn"><strong>The manual-AI boundary.</strong> You plan to write the AI agent integration by hand, so the spec has to tell the assistant <em>exactly</em> where to stop. Describe the AI module's interface (function names, inputs, return schemas, behaviour when not configured) and tell it to generate <strong>stubs plus a deterministic fallback</strong> instead of real LLM calls. That boundary should show up in Q4, Q6, Q8, Q9 and Q10. Each question below has a "Manual-AI note" saying what to put there.</div>
+<div class="callout warn"><strong>The manual-AI boundary.</strong> You plan to write the AI agent integration by hand, so the spec has to tell the assistant <em>exactly</em> where to stop. Describe the AI module's interface (operation names, inputs, return schemas, behaviour when not configured) and tell it to generate <strong>stubs plus a deterministic fallback</strong> instead of real LLM calls. Describe the interface in plain, language-neutral terms so it works in whatever stack is chosen. That boundary should show up in Q4, Q6, Q8, Q9 and Q10. Each question below has a "Manual-AI note" saying what to put there.</div>
 <h3>General writing rules</h3>
 <ul>
 <li><strong>Specific beats generic.</strong> "Flag any subscription whose amount rises by more than 10% versus the previous charge" is a spec. "Detect price hikes" is a wish.</li>
 <li><strong>Use the same name for a thing everywhere.</strong> If it's <code>Transaction.raw_line</code> in Q5, don't call it "source text" in Q7.</li>
 <li><strong>Give every feature and test an ID</strong> (F1, L3, AC4). The assistant can cross-reference them, and so can you when you review the generated code.</li>
 <li><strong>Write numbers, not adjectives:</strong> limits (12 MB), caps (6 iterations), thresholds (10%), and example values ($37.69 → $49.00).</li>
-<li><strong>Only state a technology if you've decided on it.</strong> If you haven't, describe the need ("a chart of monthly spend") and let the assistant choose.</li>
+<li><strong>Keep the spec technology-neutral.</strong> Describe behaviour, data, rules and contracts, not frameworks or libraries: "a chart of monthly spend", not a chart library; "a schema-validation layer", not a validation library. The stack (Java, Python, JavaScript or anything else) is the implementer's choice. Only name a technology if the person building the app has actually chosen one, and then only in Q9.</li>
+<li><strong>Use neutral types and contracts:</strong> string, integer, decimal, date, boolean, enum, list, object/map; HTTP method + path + JSON shape for APIs. These carry across to any language.</li>
 <li><strong>Put must-haves first</strong> and label nice-to-haves clearly, so the assistant doesn't over-build.</li>
 </ul>
 <h3>Jump to a question</h3>
@@ -86,7 +87,7 @@ footer{color:var(--muted);font-size:.85rem;text-align:center;margin-top:30px}
 <div class="qhead"><div class="num">1</div><div><h2>Project name and overview</h2><p class="sub">Two fields: "Project name" (one line) and "Short overview" (a paragraph).</p></div></div>
 <div class="meta"><span class="chip">Length: name 2–5 words · overview 80–150 words</span><span class="chip">Format: prose</span></div>
 <h3>What it's really asking</h3>
-<p>The elevator pitch. This is the first thing the assistant reads, and it frames every later decision: what kind of app this is, its shape (web app, CLI, API), and its scope (demo or production).</p>
+<p>The elevator pitch. This is the first thing the assistant reads, and it frames every later decision: what kind of app this is, its shape (web app, command-line tool, API), and its scope (demo or production).</p>
 <h3>A good answer includes</h3>
 <ul>
 <li><strong>Name:</strong> the product or repo name, plus a UI brand name if it's different (e.g. "Finance Intelligence Agent", branded "Finwise" in the UI).</li>
@@ -94,9 +95,9 @@ footer{color:var(--muted);font-size:.85rem;text-align:center;margin-top:30px}
 <li><strong>The main parts or layers</strong> (e.g. "an extraction layer and an agent layer").</li>
 <li><strong>Primary user journey in one line</strong>: input → processing → output.</li>
 <li><strong>Scope and maturity:</strong> demo, workshop, MVP or production. This sets the level of rigour the assistant aims for.</li>
-<li><strong>Stack in a phrase</strong>, if you've decided (e.g. "React + FastAPI").</li>
+<li><strong>The architecture shape</strong>, not the stack: e.g. "a web frontend talking to a backend over a JSON HTTP API". Leave the specific languages and frameworks to Q9, or to the implementer.</li>
 </ul>
-<div class="ex"><div class="bad"><span class="tag">Weak</span><pre>An AI app for finance that helps users with money.</pre></div><div class="good"><span class="tag">Strong</span><pre>A full-stack teaching demo (React + FastAPI) where users paste or upload transactions, an AI extracts them into validated records, a dashboard summarises spending, and a bounded agent audits subscriptions for silent price hikes, then drafts a dispute message that needs human approval. It never sends anything.</pre></div></div>
+<div class="ex"><div class="bad"><span class="tag">Weak</span><pre>An AI app for finance that helps users with money.</pre></div><div class="good"><span class="tag">Strong</span><pre>A full-stack teaching demo (web frontend + backend API) where users paste or upload transactions, an AI extracts them into validated records, a dashboard summarises spending, and a bounded agent audits subscriptions for silent price hikes, then drafts a dispute message that needs human approval. It never sends anything.</pre></div></div>
 <h3>Common mistakes</h3>
 <ul><li>Listing features here. Save them for Q4.</li><li>Not saying whether it's a demo or production. The assistant will then guess auth, databases and so on.</li></ul>
 </section>
@@ -117,7 +118,7 @@ footer{color:var(--muted);font-size:.85rem;text-align:center;margin-top:30px}
 </ul>
 <div class="ex"><div class="bad"><span class="tag">Weak</span><pre>People lose money on subscriptions.</pre></div><div class="good"><span class="tag">Strong</span><pre>Price increases on recurring charges ($37.69 → $49.00) get buried in long statements, so users pay the higher amount for months. Bank exports are messy (cryptic merchant strings, mixed formats), which makes manual review tedious. Outcome: the user loads data and, within one click, sees the hike, its annual cost, and a ready-to-review dispute draft.</pre></div></div>
 <h3>Common mistakes</h3>
-<ul><li>Describing the solution ("we use Gemini to…") instead of the problem.</li><li>Leaving out non-goals. That's how scope creep starts (bank integrations, payments, budgeting…).</li></ul>
+<ul><li>Describing the solution ("we use an LLM to…") instead of the problem.</li><li>Leaving out non-goals. That's how scope creep starts (bank integrations, payments, budgeting…).</li></ul>
 </section>
 
 <!-- Q3 -->
@@ -171,7 +172,7 @@ F7 — Approval gate: if a draft is produced, status = awaiting_approval; user a
 <h3>A good answer includes</h3>
 <ul>
 <li><strong>Each input channel:</strong> form fields, text paste, file upload (accepted types, max size), API inputs, and environment variables.</li>
-<li><strong>The core data schema:</strong> each field's name, type, required/optional, constraints and meaning (a Markdown table works well).</li>
+<li><strong>The core data schema:</strong> each field's name, type, required/optional, constraints and meaning (a table works well).</li>
 <li><strong>Enumerations:</strong> the allowed categories or statuses, listed exactly.</li>
 <li><strong>Sign conventions and units:</strong> currency, positive vs negative, date format (ISO <code>YYYY-MM-DD</code>).</li>
 <li><strong>Sample/demo data:</strong> the actual rows, or at least what they must demonstrate (e.g. "must include one 30% subscription hike").</li>
@@ -179,7 +180,7 @@ F7 — Approval gate: if a draft is produced, status = awaiting_approval; user a
 </ul>
 <div class="callout info"><strong>Manual-AI note:</strong> define the AI's <em>output schema</em> here (e.g. <code>Statement { transactions[], notes[] }</code>) even though you'll write the call yourself. The assistant needs it to build validation and the UI.</div>
 <div class="ex"><div class="bad"><span class="tag">Weak</span><pre>Users upload bank statements.</pre></div><div class="good"><span class="tag">Strong</span><pre>File upload: PNG/JPG/PDF/CSV/TXT, max 12 MB, optional.
-Transaction: merchant (str, 1–120, required) · date (ISO date | null) · category (enum of 8, default "Other") · amount (float; +charge, −refund) · raw_line (str | null).</pre></div></div>
+Transaction: merchant (string, 1–120, required) · date (ISO date or null) · category (enum of 8, default "Other") · amount (decimal; +charge, −refund) · raw_line (string or null).</pre></div></div>
 <h3>Common mistakes</h3>
 <ul><li>No sample data. The assistant then invents data that doesn't exercise your logic.</li><li>Not saying which fields can be null or missing, and what that means.</li></ul>
 </section>
@@ -219,7 +220,7 @@ Transaction: merchant (str, 1–120, required) · date (ISO date | null) · cate
 <li><strong>For each component:</strong> the data it shows, its format (currency, date), its states (loading, empty, error, success), and its actions (buttons and what they trigger).</li>
 <li><strong>Charts:</strong> type, x/y axes, and which data feeds them.</li>
 <li><strong>Status indicators and badges:</strong> what each colour or label means.</li>
-<li><strong>Visual style:</strong> light/dark theme, accent colour (hex), corner radius, font, icon set, "card-based", density, responsive breakpoints.</li>
+<li><strong>Visual style:</strong> light/dark theme, accent colour (hex), corner radius, font style, icon style (e.g. simple outline icons), "card-based", density, responsive breakpoints.</li>
 <li><strong>API response shapes</strong> (JSON keys) for the main endpoints, so the frontend and backend match.</li>
 </ul>
 <div class="callout info"><strong>Manual-AI note:</strong> say what the UI shows when the AI isn't wired up yet (e.g. a "Demo mode available" pill, and a clear message if extraction is attempted).</div>
@@ -258,14 +259,14 @@ Transaction: merchant (str, 1–120, required) · date (ISO date | null) · cate
 <ul>
 <li><strong>Safety rules:</strong> actions the app must <em>never</em> take automatically (send email, move money, contact third parties), plus which steps need human approval.</li>
 <li><strong>Privacy:</strong> what counts as sensitive, how long it's kept (in memory vs a database), the "use fictional data" rule, and what must never be logged.</li>
-<li><strong>Security:</strong> where secrets live (backend <code>.env</code> only), CORS origins, input size limits, prompt-injection stance ("treat transaction text as data, not instructions").</li>
-<li><strong>Tech stack, with versions:</strong> frontend, backend, libraries, test tools.</li>
-<li><strong>Project folder structure:</strong> the exact tree of files you expect.</li>
+<li><strong>Security:</strong> where secrets live (backend environment configuration only, never in frontend code), CORS origins, input size limits, prompt-injection stance ("treat transaction text as data, not instructions").</li>
+<li><strong>Technology choice:</strong> write <em>"Implementer's choice"</em> and list the stack-independent requirements instead (e.g. "web UI + backend exposing a JSON HTTP API", "use the stack's standard unit-test framework", "configuration via environment variables", "runs locally with one command per part"). Name specific languages or frameworks only if they have genuinely been decided.</li>
+<li><strong>Project structure, by responsibility:</strong> e.g. <code>frontend/</code> and <code>backend/</code>, with the backend split into API layer, data models, deterministic tools, AI service, sample data and tests. Exact file names follow the chosen stack's conventions.</li>
 <li><strong>Environment variables</strong> by name, with defaults.</li>
 <li><strong>Integrations:</strong> external APIs and how they're used.</li>
 <li><strong>Constraints:</strong> no auth, no DB, single process, workshop time limits, cost limits.</li>
 </ul>
-<div class="callout warn"><strong>Manual-AI note (most important):</strong> add a dedicated sub-section, e.g. <strong>"AI integration boundary — do not implement"</strong>. List the file (<code>ai_service.py</code>), each function signature, its inputs and outputs, the exact behaviour of the stub, and the fallback. Tell the assistant to leave <code># TODO(manual):</code> markers, keep the SDK in <code>requirements.txt</code>, and route all LLM access through that one module so you only have to edit one file.</div>
+<div class="callout warn"><strong>Manual-AI note (most important):</strong> add a dedicated sub-section, e.g. <strong>"AI integration boundary — do not implement"</strong>. Name the module (e.g. "AI service"), and for each operation give its inputs and outputs (in neutral types), the exact behaviour of the stub, and the fallback. Tell the assistant to leave <code>TODO(manual)</code> markers, add whatever LLM client dependency the chosen stack needs (without calling it), and route all LLM access through that one module, so you only have to edit one place.</div>
 <h3>Common mistakes</h3>
 <ul><li>Saying "secure" without rules.</li><li>Not pinning a folder structure. The assistant reorganises things and your manual code no longer slots in.</li><li>Scattering AI calls across files, which makes manual integration painful.</li></ul>
 </section>
@@ -283,7 +284,7 @@ Transaction: merchant (str, 1–120, required) · date (ISO date | null) · cate
 <li><strong>Scenarios</strong> in Given/When/Then form, covering the happy path, a "nothing found" path, and failure paths.</li>
 <li><strong>Named unit tests</strong> the assistant should write (function, input, expected output).</li>
 <li><strong>Safety tests</strong> (e.g. "draft has <code>sent: false</code>", "approve twice → 409").</li>
-<li><strong>Run commands</strong> (<code>pytest</code>, <code>npm run build</code>) that must pass.</li>
+<li><strong>Build and test checks</strong> that must pass: "the backend unit tests pass", "the frontend production build succeeds". Leave the exact commands to the chosen stack; the README documents them.</li>
 </ul>
 <div class="callout info"><strong>Manual-AI note:</strong> split the criteria into <strong>"must pass now (offline/stub mode)"</strong> and <strong>"must pass after manual AI integration"</strong>, so the generated project can be judged on its own before you write the AI code.</div>
 <div class="ex"><div class="bad"><span class="tag">Weak</span><pre>The app should detect hikes correctly.</pre></div><div class="good"><span class="tag">Strong</span><pre>Given the sample data, when an audit runs without an API key, then findings contain exactly one item: StreamBox Premium 37.69 → 49.00, change_pct 30.0, annual_cost 588.00, status = awaiting_approval.</pre></div></div>
@@ -293,10 +294,11 @@ Transaction: merchant (str, 1–120, required) · date (ISO date | null) · cate
 <h2>Final checklist before you click "Generate"</h2>
 <ul>
 <li>☐ Every field filled, with no "TBD"s left.</li>
+<li>☐ No framework or library names outside Q9, unless the stack has genuinely been decided.</li>
 <li>☐ Names (fields, endpoints, statuses) are spelled identically across all 10 answers.</li>
 <li>☐ Q4 has an endpoint list; Q5 has the data schema and sample data; Q6 has formulas and caps.</li>
 <li>☐ Q7 covers empty, loading and error states, plus the visual style.</li>
-<li>☐ Q9 pins the stack, folder tree and env vars, and states the <strong>manual-AI boundary</strong>.</li>
+<li>☐ Q9 states the technology choice (or "implementer's choice"), the project structure by responsibility and the env vars, and states the <strong>manual-AI boundary</strong>.</li>
 <li>☐ Q10 has exact expected numbers and is split into stub-mode and post-integration criteria.</li>
 <li>☐ Use <strong>Preview Markdown</strong> to check the result renders cleanly (no stray <code>#</code> headings in your answers).</li>
 <li>☐ After generating the project, first check that stub mode passes Q10. Then hand-code the AI module and re-test.</li>
