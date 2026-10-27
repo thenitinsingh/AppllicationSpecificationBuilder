@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spec Builder Answer Guide</title><meta name="description" content="Question-by-question guidance for the Application Specification Builder."><style>:root{--bg:#f5f6fa;--card:#ffffff;--ink:#1b2033;--muted:#5f6779;--line:#e2e5ee;--accent:#4b56d2;--accent-soft:#eef0ff;--good:#127a4a;--good-soft:#e8f6ee;--bad:#b4372f;--bad-soft:#fcecea;--warn:#8a5a00;--warn-soft:#fff5df;--code:#f3f4f8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12141c;--card:#1a1d28;--ink:#e6e8f0;--muted:#a0a7b8;--line:#2c3040;--accent:#8f98ff;--accent-soft:#252a48;--good:#5fd39b;--good-soft:#16301f;--bad:#ff8a80;--bad-soft:#3a1e1c;--warn:#f2c46b;--warn-soft:#352a12;--code:#222634}}
+:root[data-theme="dark"]{--bg:#12141c;--card:#1a1d28;--ink:#e6e8f0;--muted:#a0a7b8;--line:#2c3040;--accent:#8f98ff;--accent-soft:#252a48;--good:#5fd39b;--good-soft:#16301f;--bad:#ff8a80;--bad-soft:#3a1e1c;--warn:#f2c46b;--warn-soft:#352a12;--code:#222634}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:960px;margin:0 auto;padding:40px 16px 64px}
+header.top{margin-bottom:28px}
+.eyebrow{text-transform:uppercase;letter-spacing:.12em;color:var(--accent);font-size:.75rem;font-weight:750}
+h1{font-size:clamp(1.7rem,4vw,2.4rem);line-height:1.15;margin:.4rem 0 .6rem}
+h2{font-size:1.25rem;margin:0 0 .3rem;line-height:1.3}
+h3{font-size:.95rem;margin:1.1rem 0 .4rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+p{margin:.4rem 0}
+.lead{color:var(--muted);max-width:760px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;margin:0 0 16px}
+.qhead{display:flex;gap:14px;align-items:flex-start;margin-bottom:6px}
+.num{flex:0 0 36px;height:36px;border-radius:10px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);font-weight:800}
+.sub{color:var(--muted);font-size:.92rem;margin:0}
+ul,ol{padding-left:1.25rem;margin:.4rem 0}li{margin:.25rem 0}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.86em;background:var(--code);padding:1px 5px;border-radius:5px}
+.toc{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px;margin-top:10px}
+.toc a{display:block;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);text-decoration:none;font-size:.9rem}
+.toc a:hover{border-color:var(--accent)}
+.toc b{color:var(--accent);margin-right:6px}
+.callout{border-radius:12px;padding:13px 16px;margin:12px 0;font-size:.94rem}
+.callout.info{background:var(--accent-soft)}
+.callout.warn{background:var(--warn-soft);color:var(--ink)}
+.callout.warn strong{color:var(--warn)}
+.ex{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px}
+.ex>div{border-radius:12px;padding:12px 14px;font-size:.9rem}
+.ex .bad{background:var(--bad-soft)}.ex .good{background:var(--good-soft)}
+.ex .tag{font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:4px}
+.ex .bad .tag{color:var(--bad)}.ex .good .tag{color:var(--good)}
+.ex pre{margin:0;white-space:pre-wrap;font:inherit}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 2px}
+.chip{font-size:.78rem;padding:3px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th,td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top}
+th{color:var(--muted);font-weight:700;font-size:.8rem;text-transform:uppercase;letter-spacing:.05em}
+.tablewrap{overflow-x:auto}
+/* copy blocks */
+.field{margin-top:14px}
+.fieldbar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px;flex-wrap:wrap}
+.fieldbar .label{font-weight:700;font-size:.92rem}
+.fieldbar .label span{font-weight:500;color:var(--muted);font-size:.82rem;margin-left:6px}
+button.copy{font:inherit;font-size:.85rem;font-weight:700;border:0;border-radius:9px;padding:7px 14px;background:var(--accent);color:#fff;cursor:pointer}
+button.copy.done{background:var(--good)}
+pre.paste{margin:0;background:var(--code);border:1px solid var(--line);border-radius:10px;padding:14px;white-space:pre-wrap;word-break:break-word;font:13.5px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;max-height:520px;overflow:auto}
+footer{color:var(--muted);font-size:.85rem;text-align:center;margin-top:30px}
+@media(max-width:640px){.ex{grid-template-columns:1fr}.card{padding:16px}}
+@media print{body{background:#fff}.card{break-inside:avoid}button.copy{display:none}pre.paste{max-height:none}}
+</style></head>
+<body><div class="wrap"><header class="top">
+<div class="eyebrow">Spec-driven development · Reference guide</div>
+<h1>How to Answer the Application Specification Builder</h1>
+<p class="lead">This guide goes through all 10 questions in the Application Specification Builder. For each one it covers what the question is really asking, what a complete answer contains, how long it should be, and the mistakes that lead to a weak <code>specs.md</code>. It's written for a workflow where an AI coding assistant generates the full-stack app from the spec, and <strong>you hand-code the AI/LLM integration yourself</strong>.</p>
+</header>
+
+<section class="card">
+<h2>Before you start: how the builder uses your answers</h2>
+<ul>
+<li><strong>Your answers are pasted straight into Markdown.</strong> Each field becomes a section under <code>## 1.</code> … <code>## 10.</code>, so you can use Markdown inside the text boxes: <code>-</code> bullets, <code>1.</code> numbered lists, <code>**bold**</code>, <code>`code`</code>, and simple tables. Don't add <code>#</code> or <code>##</code> headings of your own. Use <code>**Bold labels:**</code> or <code>####</code> for sub-headings so the document hierarchy stays intact.</li>
+<li><strong>The builder already adds boilerplate.</strong> Every spec automatically gets "build end-to-end, no mockups, never hardcode secrets, write a README, <code>.env.example</code>, tests, definition of done". Don't repeat any of that. Use your words on things that are specific to <em>this</em> project.</li>
+<li><strong>The reader is an AI coding assistant.</strong> It takes every sentence literally and fills any gap with a guess. Wherever a guess would be wrong, write the decision down: the exact field names, numbers, messages, and states.</li>
+<li><strong>Every field is required.</strong> If something doesn't apply, write a short reason ("No authentication — single-user local demo") rather than leaving it blank, or the spec will say <em>"Not specified yet."</em></li>
+</ul>
+<div class="callout warn"><strong>The manual-AI boundary.</strong> You plan to write the AI agent integration by hand, so the spec has to tell the assistant <em>exactly</em> where to stop. Describe the AI module's interface (function names, inputs, return schemas, behaviour when not configured) and tell it to generate <strong>stubs plus a deterministic fallback</strong> instead of real LLM calls. That boundary should show up in Q4, Q6, Q8, Q9 and Q10. Each question below has a "Manual-AI note" saying what to put there.</div>
+<h3>General writing rules</h3>
+<ul>
+<li><strong>Specific beats generic.</strong> "Flag any subscription whose amount rises by more than 10% versus the previous charge" is a spec. "Detect price hikes" is a wish.</li>
+<li><strong>Use the same name for a thing everywhere.</strong> If it's <code>Transaction.raw_line</code> in Q5, don't call it "source text" in Q7.</li>
+<li><strong>Give every feature and test an ID</strong> (F1, L3, AC4). The assistant can cross-reference them, and so can you when you review the generated code.</li>
+<li><strong>Write numbers, not adjectives:</strong> limits (12 MB), caps (6 iterations), thresholds (10%), and example values ($37.69 → $49.00).</li>
+<li><strong>Only state a technology if you've decided on it.</strong> If you haven't, describe the need ("a chart of monthly spend") and let the assistant choose.</li>
+<li><strong>Put must-haves first</strong> and label nice-to-haves clearly, so the assistant doesn't over-build.</li>
+</ul>
+<h3>Jump to a question</h3>
+<div class="toc">
+<a href="#q1"><b>1</b>Name &amp; overview</a><a href="#q2"><b>2</b>Problem statement</a><a href="#q3"><b>3</b>Users &amp; tasks</a><a href="#q4"><b>4</b>Core features</a><a href="#q5"><b>5</b>Inputs &amp; data</a><a href="#q6"><b>6</b>Business logic</a><a href="#q7"><b>7</b>Outputs &amp; UX</a><a href="#q8"><b>8</b>Errors &amp; edge cases</a><a href="#q9"><b>9</b>Safety &amp; constraints</a><a href="#q10"><b>10</b>Acceptance &amp; tests</a><a href="#final"><b>✓</b>Final checklist</a>
+</div>
+</section>
+
+<!-- Q1 -->
+<section class="card" id="q1">
+<div class="qhead"><div class="num">1</div><div><h2>Project name and overview</h2><p class="sub">Two fields: "Project name" (one line) and "Short overview" (a paragraph).</p></div></div>
+<div class="meta"><span class="chip">Length: name 2–5 words · overview 80–150 words</span><span class="chip">Format: prose</span></div>
+<h3>What it's really asking</h3>
+<p>The elevator pitch. This is the first thing the assistant reads, and it frames every later decision: what kind of app this is, its shape (web app, CLI, API), and its scope (demo or production).</p>
+<h3>A good answer includes</h3>
+<ul>
+<li><strong>Name:</strong> the product or repo name, plus a UI brand name if it's different (e.g. "Finance Intelligence Agent", branded "Finwise" in the UI).</li>
+<li><strong>What it is</strong>, in one sentence: type of app plus the core value.</li>
+<li><strong>The main parts or layers</strong> (e.g. "an extraction layer and an agent layer").</li>
+<li><strong>Primary user journey in one line</strong>: input → processing → output.</li>
+<li><strong>Scope and maturity:</strong> demo, workshop, MVP or production. This sets the level of rigour the assistant aims for.</li>
+<li><strong>Stack in a phrase</strong>, if you've decided (e.g. "React + FastAPI").</li>
+</ul>
+<div class="ex"><div class="bad"><span class="tag">Weak</span><pre>An AI app for finance that helps users with money.</pre></div><div class="good"><span class="tag">Strong</span><pre>A full-stack teaching demo (React + FastAPI) where users paste or upload transactions, an AI extracts them into validated records, a dashboard summarises spending, and a bounded agent audits subscriptions for silent price hikes, then drafts a dispute message that needs human approval. It never sends anything.</pre></div></div>
+<h3>Common mistakes</h3>
+<ul><li>Listing features here. Save them for Q4.</li><li>Not saying whether it's a demo or production. The assistant will then guess auth, databases and so on.</li></ul>
+</section>
+
+<!-- Q2 -->
+<section class="card" id="q2">
+<div class="qhead"><div class="num">2</div><div><h2>Problem statement</h2><p class="sub">The pain point, its impact, and the outcome you want.</p></div></div>
+<div class="meta"><span class="chip">Length: 100–200 words or 4–8 bullets</span><span class="chip">Format: Pain → Impact → Outcome</span></div>
+<h3>What it's really asking</h3>
+<p><em>Why</em> the app exists. The assistant uses this to break ties. When a requirement is ambiguous, it picks whichever reading best solves the stated problem.</p>
+<h3>A good answer includes</h3>
+<ul>
+<li><strong>Current pain:</strong> what users do today and why it fails (manual, slow, error-prone, invisible).</li>
+<li><strong>Concrete impact:</strong> money, time or risk, with a number or example if you have one.</li>
+<li><strong>A secondary or teaching problem</strong>, if there is one (e.g. "learners need to see a safe, grounded AI pattern").</li>
+<li><strong>The desired outcome:</strong> what "solved" looks like, in observable terms.</li>
+<li><strong>Non-goals:</strong> what this app deliberately does <em>not</em> solve.</li>
+</ul>
+<div class="ex"><div class="bad"><span class="tag">Weak</span><pre>People lose money on subscriptions.</pre></div><div class="good"><span class="tag">Strong</span><pre>Price increases on recurring charges ($37.69 → $49.00) get buried in long statements, so users pay the higher amount for months. Bank exports are messy (cryptic merchant strings, mixed formats), which makes manual review tedious. Outcome: the user loads data and, within one click, sees the hike, its annual cost, and a ready-to-review dispute draft.</pre></div></div>
+<h3>Common mistakes</h3>
+<ul><li>Describing the solution ("we use Gemini to…") instead of the problem.</li><li>Leaving out non-goals. That's how scope creep starts (bank integrations, payments, budgeting…).</li></ul>
+</section>
+
+<!-- Q3 -->
+<section class="card" id="q3">
+<div class="qhead"><div class="num">3</div><div><h2>Target users and user tasks</h2><p class="sub">Who uses it, and what each user must be able to do.</p></div></div>
+<div class="meta"><span class="chip">Length: 2–4 user types × 3–6 tasks</span><span class="chip">Format: grouped bullets</span></div>
+<h3>What it's really asking</h3>
+<p>Roles and jobs to be done. This determines screens, permissions and the main user journey.</p>
+<h3>A good answer includes</h3>
+<ul>
+<li><strong>Each user type</strong> with a one-line description and their technical level.</li>
+<li><strong>Tasks as verbs:</strong> "Load sample data", "Upload a receipt", "Approve or reject the draft".</li>
+<li><strong>The primary user and journey</strong>, marked explicitly.</li>
+<li><strong>Permission differences</strong>, or an explicit "single user, no login".</li>
+<li>Optional: a <strong>developer/operator</strong> role (the person who configures API keys or runs the demo). This is useful when part of the work, like your manual AI integration, is done by a developer.</li>
+</ul>
+<div class="ex"><div class="bad"><span class="tag">Weak</span><pre>Students and teachers.</pre></div><div class="good"><span class="tag">Strong</span><pre>**Learner (primary)** — non-expert; tasks: load sample data, paste/upload transactions, view dashboard, run an audit, approve/reject the draft, read the trace.
+**Instructor** — runs the live demo; needs a no-API-key mode that still shows the full agent flow.</pre></div></div>
+<h3>Common mistakes</h3>
+<ul><li>Saying "users" without separating roles.</li><li>Writing tasks as features ("dashboard") instead of actions ("see total outflow by month").</li></ul>
+</section>
+
+<!-- Q4 -->
+<section class="card" id="q4">
+<div class="qhead"><div class="num">4</div><div><h2>Core features</h2><p class="sub">Essential features, must-haves first, one per line.</p></div></div>
+<div class="meta"><span class="chip">Length: 8–15 must-haves + 2–5 nice-to-haves</span><span class="chip">Format: numbered list with IDs (F1, F2…)</span></div>
+<h3>What it's really asking</h3>
+<p>The build list. Each line should become a unit of work the assistant can implement and you can verify.</p>
+<h3>A good answer includes</h3>
+<ul>
+<li><strong>ID + name + one-sentence behaviour</strong> for each feature, e.g. <code>F3 — Extract transactions: POST text and/or a file; return validated records + notes.</code></li>
+<li>Frontend <strong>and</strong> backend aspects of the feature where both exist.</li>
+<li><strong>An API endpoint list</strong> (method, path, purpose). This is the clearest contract between the two halves of the app.</li>
+<li>Clearly separated <strong>Must-have</strong>, <strong>Nice-to-have</strong> and <strong>Out of scope</strong> groups.</li>
+</ul>
+<div class="callout info"><strong>Manual-AI note:</strong> mark AI-dependent features, e.g. <code>F3 (AI — hand-coded)</code>, so the assistant builds the route, UI and validation around them but leaves the LLM call to you.</div>
+<div class="ex"><div class="bad"><span class="tag">Weak</span><pre>- Upload
+- Dashboard
+- AI agent</pre></div><div class="good"><span class="tag">Strong</span><pre>F6 — Agent audit: POST /api/audits runs a bounded loop (max 6 steps) over allowlisted tools and returns session state + trace.
+F7 — Approval gate: if a draft is produced, status = awaiting_approval; user approves/rejects; nothing is ever sent.</pre></div></div>
+<h3>Common mistakes</h3>
+<ul><li>Features that are really outcomes ("make finance easy").</li><li>Leaving out the "boring" features: sample data, health check, reset/reload, empty states.</li><li>No endpoint list, which leaves the assistant to invent paths and payloads.</li></ul>
+</section>
+
+<!-- Q5 -->
+<section class="card" id="q5">
+<div class="qhead"><div class="num">5</div><div><h2>Inputs and data sources</h2><p class="sub">Forms, uploads, file types, external services, sample data, required/optional fields.</p></div></div>
+<div class="meta"><span class="chip">Length: medium–long; the data model lives here</span><span class="chip">Format: sub-sections + field table</span></div>
+<h3>What it's really asking</h3>
+<p>Everything that enters the system, and the <strong>shape of the data</strong>. This is where you define the data model, so be precise.</p>
+<h3>A good answer includes</h3>
+<ul>
+<li><strong>Each input channel:</strong> form fields, text paste, file upload (accepted types, max size), API inputs, and environment variables.</li>
+<li><strong>The core data schema:</strong> each field's name, type, required/optional, constraints and meaning (a Markdown table works well).</li>
+<li><strong>Enumerations:</strong> the allowed categories or statuses, listed exactly.</li>
+<li><strong>Sign conventions and units:</strong> currency, positive vs negative, date format (ISO <code>YYYY-MM-DD</code>).</li>
+<li><strong>Sample/demo data:</strong> the actual rows, or at least what they must demonstrate (e.g. "must include one 30% subscription hike").</li>
+<li><strong>External services:</strong> what's called and with which credentials (by variable name only).</li>
+</ul>
+<div class="callout info"><strong>Manual-AI note:</strong> define the AI's <em>output schema</em> here (e.g. <code>Statement { transactions[], notes[] }</code>) even though you'll write the call yourself. The assistant needs it to build validation and the UI.</div>
+<div class="ex"><div class="bad"><span class="tag">Weak</span><pre>Users upload bank statements.</pre></div><div class="good"><span class="tag">Strong</span><pre>File upload: PNG/JPG/PDF/CSV/TXT, max 12 MB, optional.
+Transaction: merchant (str, 1–120, required) · date (ISO date | null) · category (enum of 8, default "Other") · amount (float; +charge, −refund) · raw_line (str | null).</pre></div></div>
+<h3>Common mistakes</h3>
+<ul><li>No sample data. The assistant then invents data that doesn't exercise your logic.</li><li>Not saying which fields can be null or missing, and what that means.</li></ul>
+</section>
+
+<!-- Q6 -->
+<section class="card" id="q6">
+<div class="qhead"><div class="num">6</div><div><h2>Processing rules and business logic</h2><p class="sub">Calculations, decision rules, workflows, AI tasks, and how uncertainty is handled.</p></div></div>
+<div class="meta"><span class="chip">Length: the longest answer, usually 300–700 words</span><span class="chip">Format: numbered rules (L1, L2…) with formulas</span></div>
+<h3>What it's really asking</h3>
+<p>The brain of the application. If the assistant gets this wrong, the app looks right but produces wrong results, so write the rules as you would explain them to a junior developer.</p>
+<h3>A good answer includes</h3>
+<ul>
+<li><strong>The pipeline in order:</strong> input → parse → validate → compute → decide → output.</li>
+<li><strong>Exact formulas and thresholds:</strong> <code>change = (new − old) / old; flag if change &gt; 0.10</code>; rounding rules.</li>
+<li><strong>Grouping/matching rules:</strong> how records are compared (e.g. case-insensitive merchant name, sorted by date).</li>
+<li><strong>Where each calculation runs</strong> (frontend vs backend), and the rule that <strong>an LLM never computes totals</strong>.</li>
+<li><strong>Workflow/state machine:</strong> every state, and what moves the app from one to the next.</li>
+<li><strong>The agent loop</strong>, if any: allowed tools, iteration cap, stop condition, how arguments are validated.</li>
+<li><strong>Uncertainty handling:</strong> null instead of guessing, notes explaining gaps, a fallback when the AI isn't available.</li>
+<li><strong>Exact text templates</strong> for generated content (summaries, drafts), if the wording matters.</li>
+</ul>
+<div class="callout info"><strong>Manual-AI note:</strong> split the logic into a <strong>deterministic part</strong> (the assistant implements it fully: tools, maths, loop, validation) and an <strong>AI part</strong> (you implement it). For the AI part, describe the contract and the <em>offline fallback behaviour</em> (e.g. a fixed tool sequence) so the app works end-to-end before you've written any LLM code.</div>
+<div class="ex"><div class="bad"><span class="tag">Weak</span><pre>The AI analyses transactions and finds problems.</pre></div><div class="good"><span class="tag">Strong</span><pre>L4 detect_stealth_hikes: take Subscriptions with amount &gt; 0; group by merchant.strip().casefold(); sort by date (null first); for each consecutive pair, change = (cur − prev)/prev; if change &gt; 0.10, emit {merchant, old_amount, new_amount, change_pct (1 dp), date, monthly_increase}.</pre></div></div>
+<h3>Common mistakes</h3>
+<ul><li>Letting the "AI decide" things that should be deterministic code.</li><li>No iteration cap or stop condition for an agent.</li><li>Leaving rounding, sorting and duplicate handling unspecified.</li></ul>
+</section>
+
+<!-- Q7 -->
+<section class="card" id="q7">
+<div class="qhead"><div class="num">7</div><div><h2>Expected outputs and user experience</h2><p class="sub">Screens, summaries, reports, tables, charts, notifications, downloads, and visual style.</p></div></div>
+<div class="meta"><span class="chip">Length: 250–600 words</span><span class="chip">Format: layout top-to-bottom + style notes + response shapes</span></div>
+<h3>What it's really asking</h3>
+<p>What the user sees and how they interact with it. Describe it precisely enough that two people would draw roughly the same wireframe.</p>
+<h3>A good answer includes</h3>
+<ul>
+<li><strong>Layout, in order:</strong> sidebar/header, then each section from top to bottom, with what it contains.</li>
+<li><strong>For each component:</strong> the data it shows, its format (currency, date), its states (loading, empty, error, success), and its actions (buttons and what they trigger).</li>
+<li><strong>Charts:</strong> type, x/y axes, and which data feeds them.</li>
+<li><strong>Status indicators and badges:</strong> what each colour or label means.</li>
+<li><strong>Visual style:</strong> light/dark theme, accent colour (hex), corner radius, font, icon set, "card-based", density, responsive breakpoints.</li>
+<li><strong>API response shapes</strong> (JSON keys) for the main endpoints, so the frontend and backend match.</li>
+</ul>
+<div class="callout info"><strong>Manual-AI note:</strong> say what the UI shows when the AI isn't wired up yet (e.g. a "Demo mode available" pill, and a clear message if extraction is attempted).</div>
+<div class="ex"><div class="bad"><span class="tag">Weak</span><pre>A nice modern dashboard with charts.</pre></div><div class="good"><span class="tag">Strong</span><pre>Row of 4 metric cards: Total transactions (+ unique merchants), Total outflow (sum of positive amounts, USD), Subscription charges, Potential price hikes ("—" until an audit runs). Below: area chart of monthly outflow (x = "Jun 26", y = $) beside a category bar list (top 6).</pre></div></div>
+<h3>Common mistakes</h3>
+<ul><li>Leaving out empty and loading states. The assistant often skips them.</li><li>"Modern and clean" with no colours, spacing or references.</li></ul>
+</section>
+
+<!-- Q8 -->
+<section class="card" id="q8">
+<div class="qhead"><div class="num">8</div><div><h2>Error handling and edge cases</h2><p class="sub">Invalid inputs, missing fields, duplicates, unsupported files, API failures, retries.</p></div></div>
+<div class="meta"><span class="chip">Length: 8–20 cases</span><span class="chip">Format: table or "Case → Response → User sees"</span></div>
+<h3>What it's really asking</h3>
+<p>The unhappy paths. A spec without these produces a demo that crashes the moment a real user touches it.</p>
+<h3>A good answer includes</h3>
+<ul>
+<li><strong>Each case</strong> with: the trigger, the HTTP status (for API errors), the <strong>exact user-facing message</strong>, and the recovery path.</li>
+<li><strong>Input validation:</strong> empty submit, empty file, oversized file, wrong encoding, unsupported type.</li>
+<li><strong>Data edge cases:</strong> null dates, negative amounts, duplicates, a single record, zero matches.</li>
+<li><strong>Service failures:</strong> AI not configured, AI error, network down, backend not running.</li>
+<li><strong>State errors:</strong> session not found, approving twice, acting on the wrong state.</li>
+<li><strong>Partial success:</strong> how to return valid rows alongside per-row errors.</li>
+<li><strong>Retry policy:</strong> automatic or manual, and when <em>not</em> to retry.</li>
+</ul>
+<div class="callout info"><strong>Manual-AI note:</strong> include "AI integration not configured / not implemented yet" as an explicit case, with its status code and message, so your stubs fail gracefully.</div>
+<div class="ex"><div class="bad"><span class="tag">Weak</span><pre>Show errors if something fails.</pre></div><div class="good"><span class="tag">Strong</span><pre>File &gt; 12 MB → 413 "Please use a file smaller than 12 MB for this classroom demo." → red dismissible banner; transactions unchanged.</pre></div></div>
+</section>
+
+<!-- Q9 -->
+<section class="card" id="q9">
+<div class="qhead"><div class="num">9</div><div><h2>Safety, privacy, constraints, and integrations</h2><p class="sub">Sensitive data, permissions, approvals, limits, integrations, preferred tech, forbidden automatic actions.</p></div></div>
+<div class="meta"><span class="chip">Length: 300–700 words</span><span class="chip">Format: labelled sub-sections</span></div>
+<h3>What it's really asking</h3>
+<p>The guardrails and technical decisions. For spec-driven development this is also where you <strong>fix the architecture</strong> (stack, folder structure, environment variables) and the <strong>manual-AI boundary</strong>.</p>
+<h3>A good answer includes</h3>
+<ul>
+<li><strong>Safety rules:</strong> actions the app must <em>never</em> take automatically (send email, move money, contact third parties), plus which steps need human approval.</li>
+<li><strong>Privacy:</strong> what counts as sensitive, how long it's kept (in memory vs a database), the "use fictional data" rule, and what must never be logged.</li>
+<li><strong>Security:</strong> where secrets live (backend <code>.env</code> only), CORS origins, input size limits, prompt-injection stance ("treat transaction text as data, not instructions").</li>
+<li><strong>Tech stack, with versions:</strong> frontend, backend, libraries, test tools.</li>
+<li><strong>Project folder structure:</strong> the exact tree of files you expect.</li>
+<li><strong>Environment variables</strong> by name, with defaults.</li>
+<li><strong>Integrations:</strong> external APIs and how they're used.</li>
+<li><strong>Constraints:</strong> no auth, no DB, single process, workshop time limits, cost limits.</li>
+</ul>
+<div class="callout warn"><strong>Manual-AI note (most important):</strong> add a dedicated sub-section, e.g. <strong>"AI integration boundary — do not implement"</strong>. List the file (<code>ai_service.py</code>), each function signature, its inputs and outputs, the exact behaviour of the stub, and the fallback. Tell the assistant to leave <code># TODO(manual):</code> markers, keep the SDK in <code>requirements.txt</code>, and route all LLM access through that one module so you only have to edit one file.</div>
+<h3>Common mistakes</h3>
+<ul><li>Saying "secure" without rules.</li><li>Not pinning a folder structure. The assistant reorganises things and your manual code no longer slots in.</li><li>Scattering AI calls across files, which makes manual integration painful.</li></ul>
+</section>
+
+<!-- Q10 -->
+<section class="card" id="q10">
+<div class="qhead"><div class="num">10</div><div><h2>Acceptance criteria and test examples</h2><p class="sub">Observable pass/fail conditions and sample scenarios with expected outcomes.</p></div></div>
+<div class="meta"><span class="chip">Length: 10–20 criteria + 3–6 scenarios</span><span class="chip">Format: AC IDs + Given/When/Then</span></div>
+<h3>What it's really asking</h3>
+<p>How you'll know it works. This is your review checklist for the generated code, and the assistant's source for automated tests.</p>
+<h3>A good answer includes</h3>
+<ul>
+<li><strong>Binary, observable criteria:</strong> "GET /api/health returns 200 with <code>status: ok</code>", not "the backend works well".</li>
+<li><strong>Exact expected values</strong> from your sample data (counts, totals, percentages).</li>
+<li><strong>Scenarios</strong> in Given/When/Then form, covering the happy path, a "nothing found" path, and failure paths.</li>
+<li><strong>Named unit tests</strong> the assistant should write (function, input, expected output).</li>
+<li><strong>Safety tests</strong> (e.g. "draft has <code>sent: false</code>", "approve twice → 409").</li>
+<li><strong>Run commands</strong> (<code>pytest</code>, <code>npm run build</code>) that must pass.</li>
+</ul>
+<div class="callout info"><strong>Manual-AI note:</strong> split the criteria into <strong>"must pass now (offline/stub mode)"</strong> and <strong>"must pass after manual AI integration"</strong>, so the generated project can be judged on its own before you write the AI code.</div>
+<div class="ex"><div class="bad"><span class="tag">Weak</span><pre>The app should detect hikes correctly.</pre></div><div class="good"><span class="tag">Strong</span><pre>Given the sample data, when an audit runs without an API key, then findings contain exactly one item: StreamBox Premium 37.69 → 49.00, change_pct 30.0, annual_cost 588.00, status = awaiting_approval.</pre></div></div>
+</section>
+
+<section class="card" id="final">
+<h2>Final checklist before you click "Generate"</h2>
+<ul>
+<li>☐ Every field filled, with no "TBD"s left.</li>
+<li>☐ Names (fields, endpoints, statuses) are spelled identically across all 10 answers.</li>
+<li>☐ Q4 has an endpoint list; Q5 has the data schema and sample data; Q6 has formulas and caps.</li>
+<li>☐ Q7 covers empty, loading and error states, plus the visual style.</li>
+<li>☐ Q9 pins the stack, folder tree and env vars, and states the <strong>manual-AI boundary</strong>.</li>
+<li>☐ Q10 has exact expected numbers and is split into stub-mode and post-integration criteria.</li>
+<li>☐ Use <strong>Preview Markdown</strong> to check the result renders cleanly (no stray <code>#</code> headings in your answers).</li>
+<li>☐ After generating the project, first check that stub mode passes Q10. Then hand-code the AI module and re-test.</li>
+</ul>
+</section>
+<footer>Reference guide for the Application Specification Builder · Spec-driven development with manual AI integration</footer>
+</div></body></html>

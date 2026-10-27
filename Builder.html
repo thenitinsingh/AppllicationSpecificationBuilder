@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Specification Builder</title>
+<style>
+:root{color-scheme:light;--ink:#172033;--muted:#5d687b;--line:#dce2ea;--bg:#f4f7fb;--accent:#2457d6}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.shell{max-width:900px;margin:0 auto;padding:32px 18px 48px}header{margin-bottom:24px}.eyebrow{text-transform:uppercase;letter-spacing:.12em;color:var(--accent);font-size:.76rem;font-weight:750}
+h1{margin:.35rem 0 .5rem;font-size:clamp(1.8rem,4vw,2.5rem);line-height:1.15}.intro{color:var(--muted);max-width:760px;margin:0}
+.notice{margin-top:18px;padding:13px 15px;border:1px solid #cbd8f9;background:#edf2ff;border-radius:12px;color:#263d73;font-size:.93rem}
+form{display:grid;gap:14px}.question{background:#fff;border:1px solid var(--line);border-radius:15px;padding:18px;box-shadow:0 2px 8px #17203308}
+.qhead{display:flex;gap:12px;align-items:flex-start;margin-bottom:10px}.number{flex:0 0 32px;height:32px;border-radius:9px;display:grid;place-items:center;background:#edf2ff;color:var(--accent);font-weight:800}
+h2{font-size:1.05rem;margin:3px 0 2px}.hint{color:var(--muted);font-size:.9rem;margin:0}label{display:block;font-size:.9rem;font-weight:650;margin:10px 0 6px}
+input,textarea{width:100%;font:inherit;color:var(--ink);border:1px solid #c9d1dd;border-radius:9px;padding:11px 12px;background:#fff}textarea{min-height:90px;resize:vertical}
+input:focus,textarea:focus{outline:3px solid #2457d625;border-color:var(--accent)}.actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:4px}
+button{font:inherit;font-weight:750;border:0;border-radius:10px;padding:12px 18px;cursor:pointer}.primary{background:var(--accent);color:white}.primary:hover{background:#1744b3}.secondary{background:#e8edf5;color:var(--ink)}
+.status{color:var(--muted);font-size:.9rem}footer{margin-top:22px;color:var(--muted);font-size:.85rem;text-align:center}
+@media(max-width:600px){.shell{padding:22px 12px 36px}.question{padding:14px}}@media print{body{background:white}.shell{max-width:none}.actions,.notice{display:none}.question{break-inside:avoid;box-shadow:none}}
+</style></head>
+<body><div class="shell">
+<header><div class="eyebrow">Project planning worksheet</div><h1>Application Specification Builder</h1>
+<p class="intro">Answer these 10 questions to create a structured <strong>specs.md</strong> file that can be given to an AI coding assistant or developer to build a complete application, including its frontend and backend.</p>
+<div class="notice"><strong>Tip:</strong> Be specific about expected behaviour and examples. If unsure about a technical choice, describe the user need instead of guessing a technology.</div></header>
+<form id="specForm">
+<section class="question"><div class="qhead"><div class="number">1</div><div><h2>Project name and overview</h2><p class="hint">What are you building, and what is its main purpose?</p></div></div>
+<label for="projectName">Project name</label><input id="projectName" placeholder="e.g., Finance Intelligence Agent" required>
+<label for="overview">Short overview</label><textarea id="overview" placeholder="Describe the application in a few sentences." required></textarea></section>
+<section class="question"><div class="qhead"><div class="number">2</div><div><h2>Problem statement</h2><p class="hint">What problem does the application solve, and why does it matter?</p></div></div><textarea id="problem" placeholder="Describe the current pain point, its impact, and the outcome you want." required></textarea></section>
+<section class="question"><div class="qhead"><div class="number">3</div><div><h2>Target users and user tasks</h2><p class="hint">Who will use it, and what should they be able to do?</p></div></div><textarea id="users" placeholder="List user types and the main tasks each user needs to complete." required></textarea></section>
+<section class="question"><div class="qhead"><div class="number">4</div><div><h2>Core features</h2><p class="hint">List essential features. Prioritize must-haves over nice-to-haves.</p></div></div><textarea id="features" placeholder="One feature per line. Include essential user actions and workflows." required></textarea></section>
+<section class="question"><div class="qhead"><div class="number">5</div><div><h2>Inputs and data sources</h2><p class="hint">What information enters the system?</p></div></div><textarea id="inputs" placeholder="Describe forms, uploads, file types, external services, sample data, and required/optional fields." required></textarea></section>
+<section class="question"><div class="qhead"><div class="number">6</div><div><h2>Processing rules and business logic</h2><p class="hint">How should the application transform inputs into useful results?</p></div></div><textarea id="logic" placeholder="Describe calculations, decision rules, workflows, AI tasks, and how uncertainty should be handled." required></textarea></section>
+<section class="question"><div class="qhead"><div class="number">7</div><div><h2>Expected outputs and user experience</h2><p class="hint">What should users see or receive, and how should they interact with it?</p></div></div><textarea id="outputs" placeholder="Describe screens, summaries, reports, tables, charts, notifications, downloads, and desired visual style." required></textarea></section>
+<section class="question"><div class="qhead"><div class="number">8</div><div><h2>Error handling and edge cases</h2><p class="hint">What should happen when something goes wrong or data is incomplete?</p></div></div><textarea id="errors" placeholder="Consider invalid inputs, missing fields, duplicates, unsupported files, API failures, and retry behaviour." required></textarea></section>
+<section class="question"><div class="qhead"><div class="number">9</div><div><h2>Safety, privacy, constraints, and integrations</h2><p class="hint">What must be protected, avoided, or supported?</p></div></div><textarea id="constraints" placeholder="Mention sensitive data, permissions, approval steps, budget/time limits, integrations, preferred technologies, and actions the app must never take automatically." required></textarea></section>
+<section class="question"><div class="qhead"><div class="number">10</div><div><h2>Acceptance criteria and test examples</h2><p class="hint">How will you know the application is working correctly?</p></div></div><textarea id="acceptance" placeholder="Write observable pass/fail conditions and sample scenarios with expected outcomes." required></textarea></section>
+<div class="actions"><button class="primary" type="submit">Generate and download specs.md</button><button class="secondary" type="button" id="previewBtn">Preview Markdown</button><button class="secondary" type="reset">Clear form</button><span class="status" id="status" role="status" aria-live="polite"></span></div>
+</form>
+<section id="previewSection" class="question" hidden style="margin-top:18px"><h2>Markdown preview</h2><p class="hint">This is the content that will be downloaded as <code>specs.md</code>.</p><textarea id="preview" readonly style="min-height:320px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.86rem"></textarea><div class="actions"><button class="secondary" type="button" id="copyBtn">Copy Markdown</button></div></section>
+<footer>Standalone worksheet · No account required · Your answers stay in this browser page until you close or reset it</footer>
+</div>
+<script>
+(() => {
+const ids=['projectName','overview','problem','users','features','inputs','logic','outputs','errors','constraints','acceptance'];
+const sections=[
+['Project name and overview',[['Project name','projectName'],['Overview','overview']]],
+['Problem statement',[['Problem','problem']]],
+['Target users and user tasks',[['Users and tasks','users']]],
+['Core features',[['Core features','features']]],
+['Inputs and data sources',[['Inputs and data sources','inputs']]],
+['Processing rules and business logic',[['Processing logic','logic']]],
+['Expected outputs and user experience',[['Expected outputs and UX','outputs']]],
+['Error handling and edge cases',[['Error handling and edge cases','errors']]],
+['Safety, privacy, constraints, and integrations',[['Safety, privacy, constraints, integrations','constraints']]],
+['Acceptance criteria and test examples',[['Acceptance criteria and test examples','acceptance']]]
+];
+const val=id=>document.getElementById(id).value.trim();
+const safe=s=>s||'_Not specified yet._';
+function markdown(){
+let md='# '+safe(val('projectName'))+'\n\n';
+md+='> Application specification generated by the Application Specification Builder. Treat this document as the source of truth for planning and implementation.\n\n';
+md+='## Instructions for the implementation team or AI coding assistant\n\n';
+md+='Build a working, end-to-end application from this specification, including a usable frontend and backend. Do not stop at mockups or pseudocode. Create the project structure, implement the required workflows, connect frontend and backend, provide configuration examples, include realistic demo data where appropriate, and document how to install, run, and test the application locally. Make reasonable, clearly documented assumptions only where requirements are missing. Never hardcode secrets. If a third-party service requires credentials, provide a clear setup path and a graceful demo or fallback mode where feasible. Include input validation, useful errors, basic security and privacy protections, and tests for critical behaviour. Do not claim external actions succeeded unless they actually did. Require user confirmation for consequential external actions.\n\n';
+sections.forEach((s,i)=>{md+='## '+(i+1)+'. '+s[0]+'\n\n';s[1].forEach(([label,id])=>{md+='### '+label+'\n\n'+safe(val(id))+'\n\n';});});
+md+='## Implementation deliverables\n\nThe completed project should include, as applicable:\n\n- A functional frontend with required screens, loading/empty states, validation, and error states.\n- A backend exposing documented endpoints or server actions for required workflows.\n- A defined data model and persistence approach; explain demo storage if persistent storage is out of scope.\n- Integration and configuration instructions for AI models and third-party services.\n- Sample/demo data so the main workflow can be demonstrated without live customer data.\n- Tests or reproducible checks for acceptance criteria.\n- A README with prerequisites, environment setup, exact run commands for frontend and backend, test commands, known limitations, and troubleshooting.\n- An `.env.example` containing variable names only, with no real secrets.\n\n';
+md+='## Definition of done\n\nThe application can be started by following the README; the primary user journey works from input to output; frontend/backend integration is functional; errors are handled clearly; demo data is available; acceptance criteria can be checked; and limitations or unimplemented requirements are explicitly documented.\n';
+return md;
+}
+function download(){const blob=new Blob([markdown()],{type:'text/markdown;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='specs.md';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);document.getElementById('status').textContent='Downloaded specs.md';}
+document.getElementById('specForm').addEventListener('submit',e=>{e.preventDefault();if(e.currentTarget.reportValidity())download();});
+document.getElementById('previewBtn').addEventListener('click',()=>{document.getElementById('preview').value=markdown();document.getElementById('previewSection').hidden=false;document.getElementById('previewSection').scrollIntoView({behavior:'smooth',block:'start'});document.getElementById('status').textContent='Preview ready';});
+document.getElementById('copyBtn').addEventListener('click',async()=>{const t=document.getElementById('preview').value;try{await navigator.clipboard.writeText(t);document.getElementById('status').textContent='Markdown copied to clipboard';}catch{const p=document.getElementById('preview');p.focus();p.select();document.getElementById('status').textContent='Preview selected; use Copy to copy it';}});
+document.getElementById('specForm').addEventListener('reset',()=>{document.getElementById('previewSection').hidden=true;document.getElementById('status').textContent='';});
+})();
+</script></body></html>
